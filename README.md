@@ -59,6 +59,3 @@ Then open the browser at `http://127.0.0.1:5000`.
 - Uploaded files are saved to `ACVS/uploads/`.
 - The signature model is loaded from `ACVS/src/signature.py`; a pre-trained model file is expected in the repo.
 - The database is initialized automatically when the app starts.
-
-## License 📄
-Add your preferred license here.
