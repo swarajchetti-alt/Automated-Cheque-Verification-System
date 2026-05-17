@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cheque Verification System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>💳 Cheque Verification System</h1>
+
+<div class="container">
+
+    <h2>Cheque Verification</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        <!-- Hidden file input -->
+        <input type="file" id="fileInput" name="cheque" accept="image/*" onchange="previewImage(event)" hidden>
+
+        <!-- Cheque Frame -->
+        <div class="cheque-frame" onclick="document.getElementById('fileInput').click()">
+
+            <p id="placeholder-text">📄 Upload your cheque here</p>
+
+            <img id="preview" src="#" alt="Cheque Preview">
+
+        </div>
+
+        <br>
+
+        <button class="verify-btn" type="submit">Verify Cheque</button>
+
+    </form>
+
+</div>
+
+{% if date %}
+<hr>
+
+<h2>📋 Extracted Details</h2>
+<p><b>Date:</b> {{ date }}</p>
+<p><b>Payee:</b> {{ payee }}</p>
+<p><b>Amount (Words):</b> {{ amount_words }}</p>
+<p><b>Amount (Fig):</b> {{ amount_fig }}</p>
+<p><b>Account No:</b> {{ account_no }}</p>
+
+<h2>✍ Signature Result</h2>
+<p><b>Status:</b> {{ result }}</p>
+
+{% if distance %}
+<p><b>Distance:</b> {{ distance }}</p>
+{% endif %}
+
+{% endif %}
+<br><br>
+
+{% if result %}
+<div class="result-box">
+    <h2>{{ result }}</h2>
+
+    {% if reasons %}
+    <ul>
+        {% for r in reasons %}
+        <li style="color:red">{{ r }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if distance %}
+    <p>Signature Distance: {{ distance }}</p>
+    {% endif %}
+</div>
+{% endif %}
+
+<a href="/add_user">➕ Add User</a> |
+<a href="/view_users">📋 View Users</a>
+</body>
+<!-- <script>
+function previewImage(event) {
+    const img = document.getElementById("preview");
+    const text = document.getElementById("placeholder-text");
+
+    img.src = URL.createObjectURL(event.target.files[0]);
+    img.style.display = "block";
+    text.style.display = "none";
+}
+</script> -->
+
+
+<script>
+function previewImage(event) {
+    const file = event.target.files[0];
+    const img = document.getElementById("preview");
+    const text = document.getElementById("placeholder-text");
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        img.src = e.target.result;
+        img.style.display = "block";
+        text.style.display = "none";
+
+        // store only for session
+        sessionStorage.setItem("chequeImage", e.target.result);
+    };
+
+    reader.readAsDataURL(file);
+}
+
+// Load only if session exists
+window.onload = function() {
+    const savedImage = sessionStorage.getItem("chequeImage");
+
+    if (savedImage) {
+        const img = document.getElementById("preview");
+        const text = document.getElementById("placeholder-text");
+
+        img.src = savedImage;
+        img.style.display = "block";
+        text.style.display = "none";
+    }
+};
+
+// CLEAR on refresh (IMPORTANT FIX)
+window.onbeforeunload = function() {
+    sessionStorage.removeItem("chequeImage");
+};
+</script>
+</html>

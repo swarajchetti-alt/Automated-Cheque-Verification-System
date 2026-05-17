@@ -1,0 +1,11 @@
+torch
+torchvision
+opencv-python
+pillow
+numpy
+pytesseract
+transformers
+rapidfuzz
+matplotlib
+pdf2image
+word2number

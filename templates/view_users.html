@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users</title>
+</head>
+<body>
+
+<!-- <h2>Users in Database</h2>
+
+<table class="user-table">
+<tr>
+    <th>ID</th>
+    <th>Account No</th>
+    <th>Name</th>
+    <th>Balance</th>
+    <th>Signature</th>
+    <th>Action</th>
+</tr>
+
+{% for user in users %}
+<tr>
+    <td>{{ user[0] }}</td>
+    <td>{{ user[1] }}</td>
+    <td>{{ user[2] }}</td>
+    <td> {{ user[4] }}</td>
+    <td>
+        <a href="{{ user[3] }}" target="_blank">View</a>
+    </td>
+    <td>
+        <a href="/delete_user/{{ user[0] }}" class="delete-btn">Delete</a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+<br>
+<a href="/">← Back</a> -->
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<div class="container">
+    <div class="card">
+
+        <h2>👥 Users in Database</h2>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Account No</th>
+                <th>Name</th>
+                <th>Balance</th>
+                <th>Signature</th>
+                <th>Action</th>
+            </tr>
+
+            {% for user in users %}
+            <tr>
+                <td>{{ user[0] }}</td>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+                <td>₹ {{ user[4] }}</td>
+                <td>
+                    <a href="{{ user[3] }}" target="_blank" class="btn btn-blue">View</a>
+                </td>
+                <td>
+                    <a href="/delete_user/{{ user[0] }}" class="btn btn-red">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <br>
+
+        <a href="/" class="btn btn-blue">⬅ Back</a>
+        <a href="/add_user" class="btn btn-green">➕ Add User</a>
+
+    </div>
+</div>
+
+</body>
+</html>
